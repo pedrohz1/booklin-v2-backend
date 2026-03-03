@@ -1,0 +1,16 @@
+import { z } from 'zod';
+
+const BookSchema = z.object({
+    title: z.string().min(1).max(150),
+    cover: z.url(),
+    author: z.string().min(1),
+    userId: z.uuid(),
+    description: z.string().max(3000).nullable().default(null)
+})
+
+export const DesiredBookSchema = BookSchema.extend({
+    link: z.url()
+}) 
+
+export type BookProps = z.infer<typeof BookSchema>;
+export type DesiredBookProps = z.infer<typeof DesiredBookSchema>;
