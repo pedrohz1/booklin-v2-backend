@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 const BookSchema = z.object({
+    id: z.uuid(),
     title: z.string().min(1).max(150),
     cover: z.url(),
     author: z.string().min(1),
