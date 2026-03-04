@@ -1,22 +1,22 @@
-import { Book } from "./Book.ts";
-import { ReadBookSchema, type ReadBookProps } from "../schemas/book.schema.ts";
+import { Book } from './Book.ts';
+import { ReadBookSchema, type ReadBookProps } from '../schemas/book.schema.ts';
 
 export class ReadBook extends Book {
-    private rating: number;
-    private review: string | null;
+  private rating: number;
+  private review: string | null;
 
-    private constructor (props: ReadBookProps) {
-        const { rating, review, ...baseProps } = props; 
-        
-        super(baseProps);
+  private constructor(props: ReadBookProps) {
+    const { rating, review, ...baseProps } = props;
 
-        this.rating = rating;
-        this.review = review;
-    }
+    super(baseProps);
 
-    static create(data: unknown) {
-        const validatedProps = ReadBookSchema.parse(data);
+    this.rating = rating;
+    this.review = review;
+  }
 
-        return new ReadBook(validatedProps);
-    }
+  static create(data: unknown) {
+    const validatedProps = ReadBookSchema.parse(data);
+
+    return new ReadBook(validatedProps);
+  }
 }
