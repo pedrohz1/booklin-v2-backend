@@ -3,11 +3,6 @@ import { pool } from "../config/db.ts";
 import { User } from "../models/entities/User.ts";
 import { type RowDataPacket, type FieldPacket } from "mysql2";
 
-export interface IUserRepository {
-    findById(id: string): Promise<User | null>; 
-    save(user: User): Promise<Error | any>;
-}
-
 interface UserDatabaseRow extends RowDataPacket {
     id: string,
     username: string,
@@ -15,7 +10,13 @@ interface UserDatabaseRow extends RowDataPacket {
     profile_picture: string | null;
 }
 
-class SqlUserRepository implements IUserRepository {
+export interface IUserRepository {
+    findById(id: string): Promise<User | null>; 
+    save(user: User): Promise<Error | any>;
+}
+
+
+export class SqlUserRepository implements IUserRepository {
     async findById(id: string) {
         const [rows]: [UserDatabaseRow[], FieldPacket[]] = await pool.execute('SELECT * FROM users WHERE id = ?', [id]);
 
