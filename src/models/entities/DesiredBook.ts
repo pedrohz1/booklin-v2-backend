@@ -2,19 +2,21 @@ import { Book } from "./Book.ts";
 import { DesiredBookSchema, type DesiredBookProps } from "../schemas/book.schema.ts";
 
 export class DesiredBook extends Book {
-    private link: string;
 
-    private constructor (props: DesiredBookProps) {
-        const { link, ...baseProps } = props; 
-        
-        super(baseProps);
+    private constructor (protected props: DesiredBookProps) {
+        super(props);
 
-        this.link = link;
+        this.props.id = crypto.randomUUID().toString();
+        this.props.link = props.link;
     }
 
     static create(data: unknown) {
         const validatedProps = DesiredBookSchema.parse(data);
 
         return new DesiredBook(validatedProps);
+    }
+
+    public get link() {
+        return this.props.link;
     }
 }
