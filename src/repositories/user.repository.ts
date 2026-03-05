@@ -38,9 +38,9 @@ export class SqlUserRepository implements IUserRepository {
 
   async save(user: User) {
     try {
-      const [result] = await pool.query(
+      const [result] = await pool.execute(
         'INSERT INTO users (id, username, password, profile_picture) VALUES (?, ?, ?, ?)',
-        [user.id, user.username, user.password, user.profilePicture]
+        [user.id!, user.username, user.password, user.profilePicture]
       );
       return [null, result];
     } catch (e) {
