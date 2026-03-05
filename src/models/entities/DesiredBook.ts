@@ -18,6 +18,10 @@ export class DesiredBook extends Book {
     return new DesiredBook(validatedProps);
   }
 
+  public get id() {
+    return this.props.id;
+  }
+
   public get link() {
     return this.props.link;
   }
